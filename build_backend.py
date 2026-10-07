@@ -898,7 +898,7 @@ def _create_data_dir(use_symlinks=True):
 
 def _prepare_for_wheel():
     # For wheel, copy actual files instead of symlinks so they are included in the wheel
-    _install_cuda_tile_compile_deps()
+    # The consumer owns its pinned CUDA toolchain; builds must not install dependencies.
     _build_nvep_if_enabled()
     if _data_dir.exists():
         shutil.rmtree(_data_dir)
@@ -916,7 +916,7 @@ def _prepare_for_wheel():
 
 def _prepare_for_editable():
     # For editable install, use symlinks so changes are reflected immediately
-    _install_cuda_tile_compile_deps()
+    # The consumer owns its pinned CUDA toolchain; builds must not install dependencies.
     _build_nvep_if_enabled()
     if _data_dir.exists():
         shutil.rmtree(_data_dir)
